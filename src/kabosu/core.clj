@@ -4,7 +4,10 @@
 (defonce tokenizer (.create (.create (DictionaryFactory.))))
 
 (defn tokenize
-  [s]
+  [s & {:keys [mode] :or {mode "C"}}]
   (map
    (fn [token] [(.surface token) (.partOfSpeech token)])
-   (.tokenize tokenizer Tokenizer$SplitMode/C s)))
+   (.tokenize tokenizer (condp =  mode
+                              "A" Tokenizer$SplitMode/A
+                              "B" Tokenizer$SplitMode/B
+                              Tokenizer$SplitMode/C)  s)))
