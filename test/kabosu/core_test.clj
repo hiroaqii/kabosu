@@ -2,6 +2,8 @@
   (:require [clojure.test :refer :all]
             [kabosu.core :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest test-tokenize
+  (is (= (map first (tokenize "医薬品安全管理責任者")) ["医薬品安全管理責任者"]))
+  (is (= (map first (tokenize "医薬品安全管理責任者" :mode "A")) ["医薬" "品" "安全" "管理" "責任" "者"]))
+  (is (= (map first (tokenize "医薬品安全管理責任者" :mode "B")) ["医薬品" "安全" "管理" "責任者"]))
+  (is (= (map first (tokenize "医薬品安全管理責任者" :mode "C")) ["医薬品安全管理責任者"])))
